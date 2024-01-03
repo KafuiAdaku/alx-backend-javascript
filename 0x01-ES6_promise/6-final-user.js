@@ -6,7 +6,7 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
     .then((results) => {
       const result = [];
       for (const obj of results) {
-        if (obj.status === 'fulfiled') {
+        if (obj.status === 'fulfilled') {
           result.push({ status: obj.status, value: obj.value });
         } else {
           result.push({ status: obj.status, value: `${obj.reason}` });
