@@ -9,7 +9,7 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
         if (obj.status === 'fulfiled') {
           result.push({ status: obj.status, value: obj.value });
         } else {
-          result.push({ status: obj.statsu, value: obj.reason });
+          result.push({ status: obj.statsu, value: `${obj.reason}` });
         }
       }
       return result;
