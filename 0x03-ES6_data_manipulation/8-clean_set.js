@@ -5,15 +5,7 @@ export default function cleanSet(set, startString) {
   }
 
   return [...set]
-    .filter((str) => (str ? str.startsWith(startString) : ''))
-    .map((str) => (str ? str.slice(startString.length) : ''))
+    .filter((str) => (str !== undefined ? str.startsWith(startString) : ''))
+    .map((str) => (str !== undefined ? str.slice(startString.length) : ''))
     .join('-');
-/*
-  set.forEach((string) => {
-    if (string.startsWith(startString)) {
-      stringArr.push(string.slice(startString.length));
-    }
-  });
-  return stringArr.join('-');
-*/
 }
