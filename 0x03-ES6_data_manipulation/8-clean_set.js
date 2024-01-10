@@ -1,7 +1,10 @@
 export default function cleanSet(set, startString) {
   const stringArr = [];
+  if (startString === undefined || startString === '') {
+    return '';
+  }
   set.forEach((string) => {
-    if (startString !== '' && string.startsWith(startString)) {
+    if (string.startsWith(startString)) {
       stringArr.push(string.slice(startString.length));
     }
   });
