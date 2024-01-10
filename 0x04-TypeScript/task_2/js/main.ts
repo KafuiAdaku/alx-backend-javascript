@@ -48,3 +48,18 @@ function createEmployee(salary: number | string): Director | Teacher {
 console.log(createEmployee(200));
 console.log(createEmployee(1000));
 console.log(createEmployee('$500'));
+
+// task 6
+function isDirector(employee: Director | Teacher): employee is Director {
+    return employee instanceof Director;
+}
+
+function executeWork(employee: Director | Teacher): string {
+  if (employee instanceof Director) {
+    return employee.workDirectorTasks();
+  }
+  return employee.workTeacherTasks();
+}
+
+executeWork(createEmployee(200));
+executeWork(createEmployee(1000));
