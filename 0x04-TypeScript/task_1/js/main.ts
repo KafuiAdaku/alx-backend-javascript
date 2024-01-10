@@ -30,3 +30,12 @@ const director1: Directors = {
 };
 
 console.log(director1);
+
+// task 3
+function printTeacher(firstName: string, lastName: string): string {
+  return `${firstName.slice(0,1)}. ${lastName}`;
+}
+
+interface PrintTeacherFunction {
+  (firstName: string, lastName: string): string;
+}
