@@ -1,3 +1,4 @@
+// task 1
 interface Teacher {
   readonly firstName: string;
   readonly lastName: string;
@@ -15,6 +16,7 @@ const teacher1: Teacher = {
   contract: 'false'
 }
 
+// task 2
 interface Directors extends Teacher {
   numberofReports: number;
 }
