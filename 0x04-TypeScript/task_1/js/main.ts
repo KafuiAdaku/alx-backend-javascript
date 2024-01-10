@@ -9,10 +9,22 @@ interface Teacher {
 
 const teacher1: Teacher = {
   firstName: 'Adzo',
-  lastName: 'Doe',
+  lastName: 'Domale',
   fullTimeEmployee: false,
   location: 'Ho',
   contract: 'false'
 }
 
-console.log(teacher1);
+interface Directors extends Teacher {
+  numberofReports: number;
+}
+
+const director1: Directors = {
+  firstName: 'Adzo',
+  lastName: 'Domale',
+  fullTimeEmployee: true,
+  location: 'Ho',
+  numberofReports: 17,
+};
+
+console.log(director1);
