@@ -42,8 +42,8 @@ const app = http.createServer((req, res) => {
     countStudents('database.csv')
       .then((data) => {
         res.write('This is the list of our students\n');
-        const output = data.trim();
-        res.end(output);
+        const output = data.trim().split('\n');
+        res.end(output.join('\n'));
       })
       .catch(() => {
         res.statusCode = 404;
