@@ -42,10 +42,12 @@ const app = http.createServer((req, res) => {
     countStudents('database.csv')
       .then((data) => {
         res.write('This is the list of our students\n');
-        res.end(data);
+        output = data.trim();
+        res.end(output);
       })
-      .catch((error) => {
-        res.end(error.message);
+      .catch(() => {
+        res.statusCode = 404;
+        res.end('Cannot load the database');
       });
   }
 });
