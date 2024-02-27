@@ -1,34 +1,33 @@
 // const countStudents = require('./3-read_file_async');
 const fs = require('fs');
 const http = require('http');
+
 function countStudents(path) {
-    return new Promise((resolve, reject) => {
-        fs.readFile(path, 'utf8', (err, data) => {
-            if (err) {
-                reject(new Error('Cannot load the database'));
-                return;
-            }
-            const lines = data.split('\n').filter((line) => line.length > 0);
-            const students = lines.slice(1); // Exclude header
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, 'utf8', (err, data) => {
+      if (err) {
+        reject(new Error('Cannot load the database'));
+        return;
+      }
+      const lines = data.split('\n').filter((line) => line.length > 0);
+      const students = lines.slice(1); // Exclude header
 
-            const numStudents = `Number of students: ${students.length}`;
+      const fields = {};
+      for (const student of students) {
+        const [firstname, , , field] = student.split(',');
+        if (!fields[field]) {
+          fields[field] = [];
+        }
+        fields[field].push(firstname);
+      }
 
-            const fields = {};
-            for (const student of students) {
-                const [firstname, , , field] = student.split(',');
-                if (!fields[field]) {
-                    fields[field] = [];
-                }
-                fields[field].push(firstname);
-            }
-
-            let output = ``;
-            for (const [field, students] of Object.entries(fields)) {
-                output += `Number of students in ${field}: ${students.length}. List: ${students.join(', ')}\n`;
-            }
-            resolve(output);
-        })
-    })
+      let output = '';
+      for (const [field, students] of Object.entries(fields)) {
+        output += `Number of students in ${field}: ${students.length}. List: ${students.join(', ')}\n`;
+      }
+      resolve(output);
+    });
+  });
 }
 
 const hostname = '127.0.0.1';
