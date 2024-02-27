@@ -34,16 +34,18 @@ const hostname = '127.0.0.1';
 const port = 1245;
 
 const app = http.createServer((req, res) => {
+  res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   if (req.url === '/') {
-    res.end('Hello Holberton School!');
+    res.write('Hello Holberton School!');
+    res.end();
   }
   if (req.url === '/students') {
     countStudents('database.csv')
       .then((data) => {
         res.write('This is the list of our students\n');
-        const output = data.trim().split('\n');
-        res.end(output.join('\n'));
+        const output = data.slice(0, -1);
+        res.end(output);
       })
       .catch(() => {
         res.statusCode = 404;
