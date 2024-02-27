@@ -40,7 +40,7 @@ const app = http.createServer((req, res) => {
     res.write('Hello Holberton School!');
     res.end();
   } else if (req.url === '/students') {
-    countStudents(process.argv[2])
+    countStudents(process.argv[2].toString())
       .then((data) => {
         res.write('This is the list of our students\n');
         const output = data.slice(0, -1);
