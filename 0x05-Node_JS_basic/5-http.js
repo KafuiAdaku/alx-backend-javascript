@@ -41,7 +41,7 @@ const app = http.createServer((req, res) => {
     res.end();
   }
   if (req.url === '/students') {
-    countStudents('database.csv')
+    countStudents(process.argv[2])
       .then((data) => {
         res.write('This is the list of our students\n');
         const output = data.slice(0, -1);
