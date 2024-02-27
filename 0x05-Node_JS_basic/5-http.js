@@ -39,8 +39,7 @@ const app = http.createServer((req, res) => {
   if (req.url === '/') {
     res.write('Hello Holberton School!');
     res.end();
-  }
-  if (req.url === '/students') {
+  } else if (req.url === '/students') {
     countStudents(process.argv[2])
       .then((data) => {
         res.write('This is the list of our students\n');
@@ -51,6 +50,9 @@ const app = http.createServer((req, res) => {
         res.statusCode = 404;
         res.end('Cannot load the database');
       });
+  } else {
+    res.statusCode = 404;
+    res.end('Invalid request');
   }
 });
 
