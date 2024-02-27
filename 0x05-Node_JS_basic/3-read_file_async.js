@@ -6,7 +6,7 @@ function countStudents(path) {
       if (err) {
         reject(new Error('Cannot load the database'));
         return;
-    }
+      }
       const lines = data.split('\n').filter((line) => line.length > 0);
       const students = lines.slice(1); // Exclude header
 
