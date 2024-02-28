@@ -2,31 +2,38 @@
 const fs = require('fs');
 const http = require('http');
 
+const dbPath = process.argv.length > 2 ? process.argv[2] : '';
+
 function countStudents(path) {
   return new Promise((resolve, reject) => {
-    fs.readFile(path, 'utf8', (err, data) => {
-      if (err) {
-        reject(new Error('Cannot load the database'));
-        return;
-      }
-      const lines = data.split('\n').filter((line) => line.length > 0);
-      const students = lines.slice(1); // Exclude header
-
-      const fields = {};
-      for (const student of students) {
-        const [firstname, , , field] = student.split(',');
-        if (!fields[field]) {
-          fields[field] = [];
+    if (!path) {
+      reject(new Error('Cannot load the database'));
+    }
+    if (path) {
+      fs.readFile(path, 'utf8', (err, data) => {
+        if (err) {
+          reject(new Error('Cannot load the database'));
+          // return;
         }
-        fields[field].push(firstname);
-      }
+        const lines = data.split('\n').filter((line) => line.length > 0);
+        const students = lines.slice(1); // Exclude header
 
-      let output = '';
-      for (const [field, students] of Object.entries(fields)) {
-        output += `Number of students in ${field}: ${students.length}. List: ${students.join(', ')}\n`;
-      }
-      resolve(output);
-    });
+        const fields = {};
+        for (const student of students) {
+          const [firstname, , , field] = student.split(',');
+          if (!fields[field]) {
+            fields[field] = [];
+          }
+          fields[field].push(firstname);
+        }
+
+        let output = '';
+        for (const [field, students] of Object.entries(fields)) {
+          output += `Number of students in ${field}: ${students.length}. List: ${students.join(', ')}\n`;
+        }
+        resolve(output);
+      });
+    }
   });
 }
 
@@ -40,9 +47,9 @@ const app = http.createServer((req, res) => {
     res.write('Hello Holberton School!');
     res.end();
   } else if (req.url === '/students') {
-    countStudents('./database.csv')
+    res.write('This is the list of our students\n');
+    countStudents(dbPath)
       .then((data) => {
-        res.write('This is the list of our students\n');
         const output = data.slice(0, -1);
         res.end(output);
       })
