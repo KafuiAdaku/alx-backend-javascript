@@ -15,4 +15,11 @@ describe('Index page', function() {
             done();
         });
     });
+
+    it('should return correct headers', function(done) {
+        request('http://localhost:7865', function(error, response, body) {
+            expect(response.headers['content-type']).to.equal('text/html; charset=utf-8');
+            done();
+        })
+    })
 });
